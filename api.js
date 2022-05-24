@@ -20,6 +20,17 @@ module.exports = function (app, db) {
 			garments = await db.many('select * from garment where season = $1 AND gender = $2', [season, gender])
 		}
 		// add some sql queries that filter on gender & season
+		console.log(garments);
+		res.json({
+			data: garments
+		})
+	});
+
+	// Price route API
+	app.get('/api/garments/price', async function (req, res) {
+		const { price } = req.query;
+		let garments = await db.many('select * from garment where price=$1', [price])
+		
 		res.json({
 			data: garments
 		})
